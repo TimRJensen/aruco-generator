@@ -1,0 +1,214 @@
+/* Standard styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    font-family: "Roboto", sans-serif;
+    --grid-cols: 1;
+    --grid-rows: 1;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+button, select, option {
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+}
+
+/* Custom styles */
+.view {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#options {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    padding: 50px 10px 25px 10px;
+    gap: 10px;
+    width: 375px;
+    background-color: rgb(225, 225, 225);;
+    transition: width 75ms ease;
+}
+
+#options > div:nth-child(2) {
+    font-size: 1.2rem;
+    font-weight: 700;
+    overflow: hidden;
+    color: rgb(75, 75, 75)
+}
+
+#options #hide {
+    position: absolute;
+    top: 0;
+    left: calc(100% - 2rem);
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    transform: rotate(0);
+    transition: transform 350ms linear;
+    font-size: 2rem;
+    color: rgb(75, 75, 75);
+}
+
+#options #hide[data-toggled="1"] {
+    transform: rotate(180deg);
+    left: calc(50% - 1rem);
+}
+
+#options:has(> #hide[data-toggled="1"]) {
+    width: calc(1.5rem + 16px*2);
+}
+
+#options > :not(:first-child) {
+    width: 100%;
+    overflow: hidden;
+    transition: width 75ms ease;
+}
+
+#options:has(> #hide[data-toggled="1"]) :not(:first-child) {
+    width: 0%;
+    opacity: 0;
+}
+
+#options #mode {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    align-items: stretch;
+    background-color: rgb(175, 175, 175);
+}
+
+#options #mode #single,
+#options #mode #grid,
+#options #mode::before {
+    width: calc((375px - 10px*2)/2);
+    height: calc(1.5rem + 10px*2);
+    z-index: 1;
+    padding: 10px 0;
+    border: none;
+    text-align: center;
+    line-height: 1rem;
+    background-color: transparent;
+    color: black;
+    transition: color 100ms linear;
+}
+
+#options #mode #single[data-toggled="1"],
+#options #mode #grid[data-toggled="1"] {
+    color: white;
+}
+
+#options #mode::before {
+    position: absolute;
+    left: 0;
+    z-index: 0;
+    background-color: rgb(75, 75, 75);
+    content: " ";
+    transition: left 100ms linear;
+}
+
+#options #mode:has(> #single[data-toggled="0"])::before {
+    left: 50%;
+}
+
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 10px 0;
+    gap: 10px;
+}
+
+.form-box {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-box label:first-child {
+    flex-grow: 2;
+}
+
+#options:has(#mode > #single[data-toggled="1"]) .form.generate .form-box:nth-child(3) {
+    display: none;
+}
+
+#options:has(#mode > #single[data-toggled="0"]) .form.generate .form-box:nth-child(2) {
+    display: none;
+}
+
+.form .input {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: calc((1.5rem + 2px*2)*2);
+    height: calc(1.5rem + 2px*2);
+    padding: 2px;
+    text-align: center;
+}
+
+.form.generate select.input {
+    width: calc(250px + 2px*2);
+    text-align: left;
+}
+
+.form.measure .input {
+    width: 4rem;
+}
+
+#options #generate,
+#options #measure {
+    border: none;
+    padding: 10px 0;
+    background-color: rgb(75, 75, 75);
+    color: white;
+}
+
+#options #log {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    row-gap: 10px;
+}
+
+#options #log :nth-child(2n) {
+    text-align: right;
+}
+
+#options hr:last-of-type {
+    margin-top: auto;
+}
+
+#content {
+    --cell-size: calc((100vh - 100px - 5px*var(--grid-rows, int))/var(--grid-rows, int));
+    align-self: center;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), min(var(--cell-size), 200px));
+    grid-template-rows: repeat(var(--grid-rows), min(var(--cell-size), 200px));
+    justify-items:center;
+    align-items:center;
+    justify-content: center;
+    align-content: center;
+    column-gap: 10px;
+    row-gap: 10px;
+    padding: 25px 25px;
+    width: 100%;
+    overflow: hidden;
+}
+
+#content img {
+    width: min(var(--cell-size), 200px)
+}

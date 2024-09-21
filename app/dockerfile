@@ -1,0 +1,18 @@
+FROM python:3.10.11-slim
+
+WORKDIR /app
+
+# Project files
+COPY ./app .
+
+# Project libraries
+RUN apt update && apt install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0
+
+# Project dependencies
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Run 
+CMD ["flask", "-A", "main.py", "run", "-h", "0.0.0.0", "-p", "1234"]

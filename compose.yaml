@@ -1,0 +1,23 @@
+name: aruco
+services:
+  web:
+    container_name: aruco-generator
+    build:
+      context: .
+      dockerfile: app/dockerfile
+      tags:
+        - "aruco-generator:latest"
+    environment:
+        - FLASK_RUN_HOST=0.0.0.0
+        - FLASK_RUN_PORT=1234
+    ports:
+        - 1234:1234
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /app
+        - action: rebuild
+          path: requirements.txt
+    stop_signal: SIGINT
+  
