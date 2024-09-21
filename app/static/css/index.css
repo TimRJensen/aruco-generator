@@ -222,3 +222,47 @@ body {
     height: 100%;
     object-fit: scale-down;
 }
+
+.hint {
+    position: relative;
+    display: inline-block;
+    width: 1.35rem;
+    height: 1.35rem;
+    top: -5px;
+    left: 5px;
+    font-size: 0.9rem;
+    border-radius: 50px;
+    background-color: rgb(75, 75, 75);
+    color: white;
+    line-height: 1.35rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.hint-msg {
+    display: none;
+    font-weight: initial;
+}
+
+.hint:hover .hint-msg {
+    display: block;
+    position: absolute;
+    width: max-content;
+    padding: 10px;
+    box-shadow: 0 0 2.5px 1px black;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    z-index: 99;
+    transition: all 100ms linear;
+}
+
+#options *:has(* .hint:hover) {
+    overflow: visible;
+}
+
+#grid[data-toggled="1"] .hint,
+#measure .hint {
+    background-color: rgb(225, 225, 225);
+    color: black;
+}

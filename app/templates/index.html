@@ -25,7 +25,12 @@
                 <hr />
                 <div id="mode">
                     <button id="single" data-toggled="1">Single</button>
-                    <button id="grid" data-toggled="0">Board</button>
+                    <button id="grid" data-toggled="0">
+                        Board<span class="hint">?
+                        <div class="hint-msg">
+                            Generates a m x n board using IDs from 0 to (m*n)-1
+                        </div></span>
+                    </button>
                 </div>
                 <form class="form generate">
                     <div class="form-box">
@@ -64,7 +69,7 @@
                         />
                     </div>
                     <div class="form-box">
-                        <label>Board size (m x n)</label>
+                        <label>Board size</label>
                         <input
                             class="input"
                             type="number"
@@ -88,8 +93,10 @@
                 <hr />
                 <form class="form measure">
                     <div class="form-box">
-                        <label title="A device's screen's diagonal"
-                            >Screen inches</label
+                        <label
+                            >Screen<span class="hint">?
+                            <div class="hint-msg">The devices screen diagonal in inches
+                            </div></span></label
                         >
                         <input
                             class="input"
@@ -100,7 +107,7 @@
                         />
                     </div>
                     <div class="form-box">
-                        <label>Detected resolution</label>
+                        <label>Resolution</label>
                         <input
                             class="input"
                             type="number"
@@ -115,7 +122,14 @@
                             min="1"
                         />
                     </div>
-                    <button id="measure" type="submit">Measure</button>
+                    <button id="measure" type="submit">
+                        Measure<span class="hint">?
+                        <div class="hint-msg">
+                            Calculates the real-world size of a marker<br/>
+                            with respect to the devices DPI.<br/>
+                            length=size/(&#x221A(width<sup>2</sup> + height<sup>2</sup>)/screen)
+                        </div></span>
+                    </button>
                 </form>
                 <hr />
                 <div id="log"></div>

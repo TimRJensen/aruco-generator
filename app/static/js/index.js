@@ -45,7 +45,9 @@ for (const form of document.querySelectorAll(".form")) {
     const elm = document.getElementById("content");
     const img = document.createElement("img");
     img.src = "/q?dict=0&id=0&size=200";
-    elm.appendChild(img);
+    const box = document.createElement("div");
+    box.appendChild(img);
+    elm.appendChild(box);
 
     function handleSubmit(e) {
         e.preventDefault();
