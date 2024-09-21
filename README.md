@@ -9,7 +9,7 @@ A simple script showcasing ArUco marker detection, camera calibration by ArUco m
 - opencv-contrib-python v4.6.0.66
 - Docker v27.0.3 (optional)
 
-## Usage - ArUco generator
+## Usage - Generator
 #### With Docker
 ```
 docker compose up -d
@@ -35,19 +35,23 @@ flask run
 ```
 Then navigate to [http://localhost:5000](http://localhost:5000/).
 
-## Usage - ArUco estimator
+## Usage - CLI
 Use the above service to generate an ArUco marker or board to use for calibration. Then run the following command (from the root folder):
 ### Windows
 ```
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
-python main.py
+cd cli
+python calibrator.py marker-x board-gap
+python estimator.py path-to-config marker-x
 ```
 ### Linux, macOS
 ```
 . .venv/bin/activate
 pip install -r requirements.txt
-python main.py
+cd cli
+python calibrator.py marker-x board-gap
+python estimator.py path-to-config marker-x
 ```
 
 ## Additional reading
