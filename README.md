@@ -41,13 +41,13 @@ Use the above service to generate an ArUco marker or board to use for calibratio
 ```
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
-python main.py
+python cli\main.py
 ```
 ### Linux, macOS
 ```
 . .venv/bin/activate
 pip install -r requirements.txt
-python main.py
+python cli/main.py
 ```
 
 ## Additional reading
