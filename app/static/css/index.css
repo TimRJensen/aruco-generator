@@ -1,6 +1,15 @@
-/* Standard styles */
+/* Google stuff */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+/* Standard styles */
 :root {
     font-family: "Roboto", sans-serif;
     --grid-cols: 1;
@@ -35,7 +44,7 @@ body {
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
-    padding: 50px 10px 25px 10px;
+    padding: 25px 10px 25px 10px;
     gap: 10px;
     width: 375px;
     background-color: rgb(225, 225, 225);;
@@ -50,25 +59,23 @@ body {
 }
 
 #options #hide {
-    position: absolute;
-    top: 0;
-    left: calc(100% - 2rem);
+    align-self: flex-end;
     border: none;
     padding: 0;
     background-color: transparent;
-    transform: rotate(0);
+    transform: rotate(180deg);
     transition: transform 350ms linear;
     font-size: 2rem;
     color: rgb(75, 75, 75);
 }
 
 #options #hide[data-toggled="1"] {
-    transform: rotate(180deg);
-    left: calc(50% - 1rem);
+    align-self: center;
+    transform: rotate(0);
 }
 
 #options:has(> #hide[data-toggled="1"]) {
-    width: calc(1.5rem + 16px*2);
+    width: calc(2rem + 16px*2);
 }
 
 #options > :not(:first-child) {
