@@ -33,8 +33,13 @@ def create_app():
     def q():
         n = request.args.get("dict", type=int)
         id = request.args.get("id", type=int)
-        path = os.path.abspath("temp/marker-{0}_{1}.png".format(id, dt.now().strftime("%d-%m-%yT%H-%M-%S")))
-        cv2.imwrite(path, aruco.drawMarker(aruco_dicts[n], id, 200))
+        size = request.args.get("size", type=int)
+        path = os.path.abspath("temp/marker-{0}_{1}.png".format(
+            id, 
+            dt.now().strftime("%d-%m-%yT%H-%M-%S"))
+        )
+        print(size)
+        cv2.imwrite(path, aruco.drawMarker(aruco_dicts[n], id, size))
         Timer(5, clean_temp, args=[path]).start()
         return send_file(path, mimetype="image/png", etag=True)
     

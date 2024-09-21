@@ -14,6 +14,7 @@
     font-family: "Roboto", sans-serif;
     --grid-cols: 1;
     --grid-rows: 1;
+    --mark-size: 200;
 }
 
 *, *::before, *::after {
@@ -150,11 +151,11 @@ body {
     flex-grow: 2;
 }
 
-#options:has(#mode > #single[data-toggled="1"]) .form.generate .form-box:nth-child(3) {
+#options:has(#mode > #single[data-toggled="1"]) .form.generate .form-box:nth-child(4) {
     display: none;
 }
 
-#options:has(#mode > #single[data-toggled="0"]) .form.generate .form-box:nth-child(2) {
+#options:has(#mode > #single[data-toggled="0"]) .form.generate .form-box:nth-child(3) {
     display: none;
 }
 
@@ -200,11 +201,11 @@ body {
 }
 
 #content {
-    --cell-size: calc((100vh - 100px - 5px*var(--grid-rows, int))/var(--grid-rows, int));
+    --cell-size: calc((100vh - 50px - 10px*var(--grid-rows, int))/var(--grid-rows, int));
     align-self: center;
     display: grid;
-    grid-template-columns: repeat(var(--grid-cols), min(var(--cell-size), 200px));
-    grid-template-rows: repeat(var(--grid-rows), min(var(--cell-size), 200px));
+    grid-template-columns: repeat(var(--grid-cols), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
     justify-items:center;
     align-items:center;
     justify-content: center;
@@ -217,5 +218,7 @@ body {
 }
 
 #content img {
-    width: min(var(--cell-size), 200px)
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
 }

@@ -44,31 +44,38 @@ for (const form of document.querySelectorAll(".form")) {
     const root = document.querySelector(":root");
     const elm = document.getElementById("content");
     const img = document.createElement("img");
-    img.src = "/q?dict=0&id=0";
+    img.src = "/q?dict=0&id=0&size=200";
     elm.appendChild(img);
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        const q = `/q?dict=${inputs[0][0].value}`;
+        const q = `/q?dict=${inputs[0][0].value}&size=${inputs[0][1].value}`;
+        let vals = [inputs[0][1].value, 1, 1];
         let children = [];
         if (MODE) {
             // Board mode
-            root.style.setProperty("--grid-rows", `${inputs[0][2].value}`);
-            root.style.setProperty("--grid-cols", `${inputs[0][3].value}`);
-            for (let i = 0; i < inputs[0][2].value * inputs[0][3].value; i++) {
+            vals[1] = inputs[0][3].value;
+            vals[2] = inputs[0][4].value;
+
+            for (let i = 0; i < inputs[0][4].value * inputs[0][3].value; i++) {
                 const img = document.createElement("img");
                 img.src = `${q}&id=${i}`;
-                children = children.concat(img);
+                const box = document.createElement("div");
+                box.appendChild(img);
+                children = children.concat(box);
             }
         } else {
             // Single mode
-            root.style.setProperty("--grid-rows", "1");
-            root.style.setProperty("--grid-cols", "1");
             const img = document.createElement("img");
-            img.src = `${q}&id=${inputs[0][1].value}`;
-            children = children.concat(img);
+            img.src = `${q}&id=${inputs[0][2].value}`;
+            const box = document.createElement("div");
+            box.appendChild(img);
+            children = children.concat(box);
         }
+        root.style.setProperty("--mark-size", vals[0]);
+        root.style.setProperty("--grid-rows", vals[1]);
+        root.style.setProperty("--grid-cols", vals[2]);
         elm.replaceChildren(...children);
     }
 
@@ -83,7 +90,7 @@ for (const form of document.querySelectorAll(".form")) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (!inputs[0][3].reportValidity()) {
+        if (!inputs[0][4].reportValidity()) {
             return;
         }
 
