@@ -22,7 +22,7 @@ python -m venv .venv
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
 cd app
-flask -A main.py run
+flask run
 ```
 Then navigate to [http://localhost:5000](http://localhost:5000/).
 ### Without Docker (Linux, macOS)
@@ -31,7 +31,7 @@ python -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 cd app
-flask -A main.py run
+flask run
 ```
 Then navigate to [http://localhost:5000](http://localhost:5000/).
 

@@ -1,12 +1,11 @@
-name: aruco
+name: aruco-generator
 services:
   web:
-    container_name: aruco-generator
+    container_name: aruco-gen
     build:
       context: .
       dockerfile: app/dockerfile
-      tags:
-        - "aruco-generator:latest"
+    image: aruco-gen:latest
     environment:
         - FLASK_RUN_HOST=0.0.0.0
         - FLASK_RUN_PORT=1234
