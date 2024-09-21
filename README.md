@@ -1,4 +1,4 @@
-## ArUco detection, calibration & estimation.
+## ArUco generation, detection, calibration & estimation.
 A simple script showcasing ArUco marker detection, camera calibration by ArUco marker and estimation to ArUco marker. Inspired by:
 
 [https://github.com/abakisita/camera_calibration](https://github.com/abakisita/camera_calibration)
@@ -40,11 +40,13 @@ Use the above service to generate an ArUco marker or board to use for calibratio
 ### Windows
 ```
 .venv\Scripts\activate.bat
+pip install -r requirements.txt
 python main.py
 ```
 ### Linux, macOS
 ```
 . .venv/bin/activate
+pip install -r requirements.txt
 python main.py
 ```
 
