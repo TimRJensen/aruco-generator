@@ -14,13 +14,12 @@ if not cap.isOpened():
 print("[\033[94mLOG\033[0m] Opened camera {0}.".format(cap_id))
 
 # Aruco specifics
-marker_x = 20.1  # Length of a marker in mm.
+marker_x = 49.71  # Length of a marker in mm.
 aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
-aruco_board = aruco.GridBoard.create(10, 10, marker_x*0.001, 1.24*0.001, aruco_dict)
+aruco_board = aruco.GridBoard.create(4, 4, marker_x*0.001, 6.77*0.001, aruco_dict)
 
 # Calibration specifics
-cal_tries   = 20         # Number of captures. 9==near, far, normal, tilt-left, tilt-right, tilt-up, tilt-down, rotate-left, rotate-right
-cal_fails   = 0
+cal_tries   = 20         # Number of captures. 
 delay       = 0         # Adds a delay in seconds to the capture. Delay of 0 results in instant capture.
 now = delay
 i = 0
@@ -55,12 +54,11 @@ while i < cal_tries:
             sleep(1)
         elif delay:
             print("\rCapturing in:\t0", end="", flush=True)
-            # sleep(1)
         now -= 1
         continue
 
     corners, ids, _ = aruco.detectMarkers(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), aruco_dict)
-    if np.all(len(x) > 0 for x in ids):
+    if ids is not None and np.all(len(x) > 0 for x in ids):
         all_corners = np.append(all_corners, corners, axis=0)
         all_ids = np.append(all_ids, ids, axis=0)
         all_counts = np.append(all_counts, [len(ids)])
@@ -114,7 +112,7 @@ if len(all_ids):
             # Report distance & angle.
             def tvec_to_euclidean(v):
                 # distance: https://stackoverflow.com/questions/68032118/get-the-real-distance-between-two-opencv-aruco-markers
-                return np.linalg.norm(v)*100 # tvec is in m, so convert it to cm.
+                return np.linalg.norm(v)*1000 # tvec is in m, so convert it to mm.
             def rvec_to_eulers(v):
                 # rvec_to_eulers: https://learnopencv.com/rotation-matrix-to-euler-angles/
                 # rvec->rmatrix: https://docs.opencv.org/4.6.0/d9/d0c/group__calib3d.html#ga61585db663d9da06b68e70cfbf6a1eac
