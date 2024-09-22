@@ -36,7 +36,7 @@ flask run
 Then navigate to [http://localhost:5000](http://localhost:5000/).
 
 ## Usage - CLI
-Use the above service to generate an ArUco marker or board to use for calibration. Then run the following command (from the root folder):
+Use the above service to generate an ArUco marker or board to use for calibration. Then run the following commands:
 ### Windows
 ```
 .venv\Scripts\activate.bat
