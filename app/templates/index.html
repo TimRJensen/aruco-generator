@@ -36,7 +36,7 @@
                 <form class="form generate">
                     <div class="form-box">
                         <label>Dictionary</label>
-                        <select class="input">
+                        <select class="input" required>
                             <option value="0">4x4 (50, 100, 250, 1000)</option>
                             <option value="1">5x5 (50, 100, 250, 1000)</option>
                             <option value="2">6x6 (50, 100, 250, 1000)</option>
@@ -56,6 +56,7 @@
                             min="1"
                             max="5000"
                             placeholder="px"
+                            required
                         />
                     </div>
                     <div class="form-box">
@@ -67,6 +68,7 @@
                             min="0"
                             max="5000"
                             placeholder="id"
+                            required
                         />
                     </div>
                     <div class="form-box">
@@ -78,6 +80,7 @@
                             min="2"
                             max="10"
                             placeholder="m"
+                            required
                         />
                         <div>x</div>
                         <input
@@ -87,6 +90,7 @@
                             min="2"
                             max="10"
                             placeholder="n"
+                            required
                         />
                     </div>
                     <button id="generate" type="submit">Generate</button>
@@ -105,6 +109,7 @@
                             value="21"
                             min="1"
                             placeholder="″"
+                            required
                         />
                     </div>
                     <div class="form-box">
@@ -114,6 +119,7 @@
                             type="number"
                             placeholder="width"
                             min="1"
+                            required
                         />
                         <div>x</div>
                         <input
@@ -121,6 +127,7 @@
                             type="number"
                             placeholder="height"
                             min="1"
+                            required
                         />
                     </div>
                     <button id="measure" type="submit">
