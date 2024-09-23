@@ -52,7 +52,7 @@ body {
     gap: 10px;
     width: 375px;
     background-color: var(--color-primary-light);
-    transition: width 75ms ease-out;
+    transition: transform 75ms ease-in;
 }
 
 #options > div:nth-child(2) {
@@ -64,6 +64,7 @@ body {
 
 #options #hide {
     align-self: flex-end;
+    width: 2rem;
     border: none;
     padding: 0;
     background-color: transparent;
@@ -74,23 +75,16 @@ body {
 }
 
 #options #hide[data-toggled="1"] {
-    align-self: center;
     transform: rotate(0);
 }
 
 #options:has(> #hide[data-toggled="1"]) {
-    width: calc(2rem + 16px*2);
+    transform: translateX(calc(-100% + 2rem + 16px));
 }
 
-#options > :not(:first-child) {
-    width: 100%;
-    overflow: hidden;
-    transition: width 75ms ease;
-}
-
-#options:has(> #hide[data-toggled="1"]) :not(:first-child) {
+#options:has(> #hide[data-toggled="1"]) :not(#options > *:first-child) {
     display: none;
-}
+} 
 
 #options #mode {
     position: relative;
