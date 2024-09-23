@@ -16,11 +16,12 @@ let MODE = 0;
     for (const child of elm.children) {
         child.onpointerdown = (e) => {
             e.preventDefault();
-            let sibling;
+
             if (child.dataset.toggled == "1") {
                 return;
             }
-            sibling =
+
+            const sibling =
                 child == elm.firstElementChild
                     ? child.nextElementSibling
                     : child.previousElementSibling;
@@ -31,9 +32,9 @@ let MODE = 0;
     }
 })();
 
-let inputs = [];
+const inputs = [];
 for (const form of document.querySelectorAll(".form")) {
-    inputs = inputs.concat(form.querySelectorAll(".input"));
+    inputs.push(...form.querySelectorAll(".input"));
     form.onsubmit = (e) => {
         e.preventDefault();
     };
@@ -43,80 +44,76 @@ for (const form of document.querySelectorAll(".form")) {
 (function () {
     const root = document.querySelector(":root");
     const elm = document.getElementById("content");
-    const img = document.createElement("img");
-    img.src = "/q?dict=0&id=0&size=200";
-    const box = document.createElement("div");
-    box.appendChild(img);
-    elm.appendChild(box);
 
     function handleSubmit(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
-        const q = `/q?dict=${inputs[0][0].value}&size=${inputs[0][1].value}`;
-        let vals = [inputs[0][1].value, 1, 1];
-        let children = [];
+        const markers = [];
+        const q = `/q?dict=${inputs[0].value}&size=${inputs[1].value}`;
         if (MODE) {
             // Board mode
-            vals[1] = inputs[0][3].value;
-            vals[2] = inputs[0][4].value;
-
-            for (let i = 0; i < inputs[0][4].value * inputs[0][3].value; i++) {
-                const img = document.createElement("img");
-                img.src = `${q}&id=${i}`;
-                const box = document.createElement("div");
-                box.appendChild(img);
-                children = children.concat(box);
+            for (let i = 0; i < parseInt(inputs[4].value) * parseInt(inputs[3].value); i++) {
+                const mark = document.createElement("img");
+                mark.src = `${q}&id=${i}`;
+                markers.push(mark);
             }
         } else {
             // Single mode
-            const img = document.createElement("img");
-            img.src = `${q}&id=${inputs[0][2].value}`;
-            const box = document.createElement("div");
-            box.appendChild(img);
-            children = children.concat(box);
+            const mark = document.createElement("img");
+            mark.src = `${q}&id=${inputs[2].value}`;
+            markers.push(mark);
         }
-        root.style.setProperty("--mark-size", vals[0]);
-        root.style.setProperty("--grid-rows", vals[1]);
-        root.style.setProperty("--grid-cols", vals[2]);
+
+        const children = []
+        for (let mark of markers) {
+            const child = document.createElement("div");
+            child.appendChild(mark);
+            children.push(child);
+        }
+
+        root.style.setProperty("--mark-size", inputs[1].value);
+        root.style.setProperty("--grid-rows", MODE ? inputs[3].value : 1);
+        root.style.setProperty("--grid-cols", MODE ? inputs[4].value : 1);
         elm.replaceChildren(...children);
     }
 
     document.querySelector(".form.generate").onsubmit = handleSubmit;
+    handleSubmit(null);
 })();
 
 // Measure event handler
 (function () {
     const elm = document.getElementById("log");
-    const msgs = ["Marker length", "Column gap", "Row gap"];
+    const texts = ["Marker length", "Column gap", "Row gap"];
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (!inputs[0][4].reportValidity()) {
+        if (!inputs[4].reportValidity()) {
             return;
         }
 
-        const diagonal = parseInt(inputs[1][0].value);
-        const vw = parseInt(inputs[1][1].value);
-        const vh = parseInt(inputs[1][2].value);
+        const diagonal = parseInt(inputs[5].value);
+        const vw = parseInt(inputs[6].value);
+        const vh = parseInt(inputs[7].value);
         const ppmm = Math.sqrt(vw ** 2 + vh ** 2) / diagonal / 25.4;
 
-        // Generated markers are always 200px, but just in case get the actual px
-        const n = parseInt(inputs[0][3].value);
+        const n = parseInt(inputs[4].value);
         const markers = document.querySelectorAll("#content img");
         const first = markers[0];
         const first_box = first.getBoundingClientRect();
-        let measures = [first_box.width / ppmm];
+        const measures = [first_box.width / ppmm];
         let next = null;
         let i = 0;
 
         while (MODE && i < 2 && (next = markers[n ** i])) {
-            let next_box = next.getBoundingClientRect();
-            measures = measures.concat(
+            measures.push(
                 Math.abs(
                     i
-                        ? first_box.bottom - next_box.top
-                        : first_box.right - next_box.left
+                        ? first_box.bottom - next.getBoundingClientRect().top
+                        : first_box.right - next.getBoundingClientRect().left
                 ) / ppmm
             );
             i++;
@@ -124,20 +121,19 @@ for (const form of document.querySelectorAll(".form")) {
 
         let children = [];
         for (let i = 0; i < measures.length; i++) {
-            const msg = document.createElement("div");
-            msg.textContent = msgs[i];
-            const result = document.createElement("div");
-            result.textContent = `${measures[i].toFixed(2)}mm`;
-            children = children.concat(msg, result);
+            for (let text of [texts[i], `${measures[i].toFixed(2)}mm`]) {
+                const child = document.createElement("div");
+                child.textContent = text
+                children.push(child)
+            }
         }
         elm.replaceChildren(...children);
     }
 
     document.querySelector(".form.measure").onsubmit = handleSubmit;
-
     const obs = new ResizeObserver(() => {
-        inputs[1][1].value = window.innerWidth;
-        inputs[1][2].value = window.innerHeight;
+        inputs[6].value = window.innerWidth;
+        inputs[7].value = window.innerHeight;
     });
     obs.observe(document.querySelector("body"));
 })();
