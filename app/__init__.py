@@ -1,9 +1,4 @@
-import os
-import cv2, cv2.aruco as aruco # type: ignore
-from threading import Timer
-from time import sleep
-from flask import Flask, request, send_file
-from datetime import datetime as dt
+from flask import Flask
 
 def create_app():
     app = Flask(__name__)
