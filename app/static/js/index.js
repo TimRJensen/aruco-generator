@@ -87,7 +87,7 @@ for (const form of document.querySelectorAll(".form")) {
 // Measure event handler
 (function () {
     const elm = document.getElementById("log");
-    const msgs = ["Marker length", "Board column gap", "Board row gap"];
+    const msgs = ["Marker length", "Column gap", "Row gap"];
 
     function handleSubmit(e) {
         e.preventDefault();
