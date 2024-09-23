@@ -15,6 +15,9 @@
     --grid-cols: 1;
     --grid-rows: 1;
     --mark-size: 200;
+    --color-primary-light: rgb(225, 225, 225);
+    --color-primary: rgb(175, 175, 175);
+    --color-primary-dark: rgb(75, 75, 75);
 }
 
 *, *::before, *::after {
@@ -48,15 +51,15 @@ body {
     padding: 25px 10px 25px 10px;
     gap: 10px;
     width: 375px;
-    background-color: rgb(225, 225, 225);;
-    transition: width 75ms ease;
+    background-color: var(--color-primary-light);
+    transition: width 75ms ease-out;
 }
 
 #options > div:nth-child(2) {
     font-size: 1.2rem;
     font-weight: 700;
     overflow: hidden;
-    color: rgb(75, 75, 75)
+    color: var(--color-primary-dark);
 }
 
 #options #hide {
@@ -67,7 +70,7 @@ body {
     transform: rotate(180deg);
     transition: transform 350ms linear;
     font-size: 2rem;
-    color: rgb(75, 75, 75);
+    color: var(--color-primary-dark);
 }
 
 #options #hide[data-toggled="1"] {
@@ -86,8 +89,7 @@ body {
 }
 
 #options:has(> #hide[data-toggled="1"]) :not(:first-child) {
-    width: 0%;
-    opacity: 0;
+    display: none;
 }
 
 #options #mode {
@@ -96,7 +98,7 @@ body {
     flex-flow: row nowrap;
     justify-content: stretch;
     align-items: stretch;
-    background-color: rgb(175, 175, 175);
+    background-color: var(--color-primary);
 }
 
 #options #mode #single,
@@ -123,7 +125,7 @@ body {
     position: absolute;
     left: 0;
     z-index: 0;
-    background-color: rgb(75, 75, 75);
+    background-color: var(--color-primary-dark);
     content: " ";
     transition: left 100ms linear;
 }
@@ -182,7 +184,7 @@ body {
 #options #measure {
     border: none;
     padding: 10px 0;
-    background-color: rgb(75, 75, 75);
+    background-color: var(--color-primary-dark);
     color: white;
 }
 
@@ -214,7 +216,6 @@ body {
     row-gap: 10px;
     padding: 5vh 10px;
     width: 100%;
-    overflow: hidden;
 }
 
 #content img {
