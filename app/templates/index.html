@@ -37,14 +37,9 @@
                     <div class="form-box">
                         <label>Dictionary</label>
                         <select class="input" required>
-                            <option value="0">4x4 (50, 100, 250, 1000)</option>
-                            <option value="1">5x5 (50, 100, 250, 1000)</option>
-                            <option value="2">6x6 (50, 100, 250, 1000)</option>
-                            <option value="3">7x7 (50, 100, 250, 1000)</option>
-                            <option value="4">AprilTag 16h5 (30)</option>
-                            <option value="5">AprilTag 25h9 (35)</option>
-                            <option value="6">AprilTag 36h10 (2320)</option>
-                            <option value="7">AprilTag 36h11 (587)</option>
+                            {% for x in aruco_dicts %}
+                                <option value={{loop.index0}}>{{x}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-box">
