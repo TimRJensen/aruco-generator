@@ -235,7 +235,7 @@ body {
 }
 
 #options:has(> #hide[data-toggled="1"]) + .content {
-    --cell-size: calc((min(90vh, calc(100vw - 2rem + 20px)) - 10px*var(--grid-rows, int) - 20px)/var(--grid-rows, int));
+    --cell-size: calc((min(90vh, calc(100vw - 2rem + 40px)) - 10px*var(--grid-rows, int) - 20px)/var(--grid-rows, int));
 }
 
 .content img {
@@ -303,7 +303,11 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-    .content[data-mobile="0"]  {display: grid; width: 100%;}
+    .content[data-mobile="0"]  {
+        --cell-size: calc((min(90vh, calc(100vw - 395px)) - 10px*var(--grid-rows, int) - 20px)/var(--grid-rows, int));
+        display: grid; 
+        width: 100%;
+    }
     .content[data-mobile="1"]  {display: none; height: 0;}
     #options {
         grid-template:

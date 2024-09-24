@@ -137,13 +137,6 @@ for (const form of document.querySelectorAll(".form")) {
     const obs = new ResizeObserver((entries) => {
         inputs[6].value = window.innerWidth;
         inputs[7].value = window.innerHeight;
-
-        const elms = document.querySelectorAll(".content");
-        if (entries[0].contentRect.width < 768) {
-            elms[0].append(...elms[1].children);
-        } else {
-            elms[1].append(...elms[0].children);
-        }
     });
     obs.observe(document.querySelector("body"));
 })();
