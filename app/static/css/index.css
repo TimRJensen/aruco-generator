@@ -29,88 +29,93 @@ button, select, option {
     cursor: pointer;
 }
 
+hr {
+    width: 100%;
+}
+
 body {
     margin: 0;
-    width: 100%;
 }
 
 /* Custom styles */
 .view {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: stretch;
+    width: 100%;
+    height: 100%;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 #options {
     position: relative;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    padding: 25px 10px 25px 10px;
-    gap: 10px;
-    width: 375px;
-    background-color: var(--color-primary-light);
-    transition: transform 75ms ease-in;
-}
-
-#options > * {
+    display: grid;
+    grid-template: 
+    "title" 1.2rem
+    "mode" 2.8rem
+    "form-generate" calc(3*14px + 3*1.5rem + 2.8rem)
+    "form-measure" calc(2*14px + 2*1.5rem + 2.8rem)
+    "hide" 2rem
+    "content" 1fr
+    "log" auto
+    "footer" auto;
+    padding: 25px 0;
+    row-gap: 15px;
     width: 100%;
+    background-color: var(--color-primary-light);
+    transition: grid-template-rows 75ms ease-in;
 }
 
-#options > div:nth-child(2) {
+#options > *:first-child {
+    text-align: center;
     font-size: 1.2rem;
     font-weight: 700;
-    overflow: hidden;
     color: var(--color-primary-dark);
 }
 
 #options #hide {
-    align-self: flex-end;
+    grid-area: hide;
+    justify-self: center;
     width: 2rem;
     border: none;
     padding: 0;
     background-color: transparent;
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
     transition: transform 350ms linear;
     font-size: 2rem;
     color: var(--color-primary-dark);
 }
 
 #options #hide[data-toggled="1"] {
-    transform: rotate(0);
+    transform: rotate(90deg);
 }
 
 #options:has(> #hide[data-toggled="1"]) {
-    transform: translateX(calc(-100% + 2rem + 16px));
+    grid-template-rows: repeat(4, 0) auto;
 }
 
-#options:has(> #hide[data-toggled="1"]) :not(#options > *:first-child) {
+#options:has(> #hide[data-toggled="1"]) > #mode,
+#options:has(> #hide[data-toggled="1"]) > .form {
     display: none;
-} 
+}
 
 #options #mode {
+    grid-area: mode;
     position: relative;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: stretch;
-    align-items: stretch;
     background-color: var(--color-primary);
 }
 
 #options #mode #single,
 #options #mode #grid,
 #options #mode::before {
-    width: calc((375px - 10px*2)/2);
-    height: calc(1.5rem + 10px*2);
+    width: 50%;
     z-index: 1;
-    padding: 10px 0;
     border: none;
-    text-align: center;
-    line-height: 1rem;
     background-color: transparent;
     color: black;
+    text-align: center;
     transition: color 100ms linear;
 }
 
@@ -121,6 +126,7 @@ body {
 
 #options #mode::before {
     position: absolute;
+    height: 100%;
     left: 0;
     z-index: 0;
     background-color: var(--color-primary-dark);
@@ -135,7 +141,6 @@ body {
 .form {
     display: flex;
     flex-flow: column nowrap;
-    padding: 10px 0;
     gap: 10px;
 }
 
@@ -144,6 +149,7 @@ body {
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 0 10px;
     gap: 10px;
 }
 
@@ -169,6 +175,14 @@ body {
     text-align: center;
 }
 
+.form.form.generate {
+    grid-area: form-generate;
+}
+
+.form.form.measure {
+    grid-area: form-measure;
+}
+
 .form.generate select.input {
     width: calc(250px + 2px*2);
     text-align: left;
@@ -180,16 +194,19 @@ body {
 
 #options #generate,
 #options #measure {
+    height: 2.8rem;
     border: none;
-    padding: 10px 0;
     background-color: var(--color-primary-dark);
     color: white;
 }
 
 #options #log {
+    grid-area: log;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(3, 1rem);
     row-gap: 10px;
+    padding: 0 10px;
 }
 
 #options #log :nth-child(2n) {
@@ -200,23 +217,28 @@ body {
     margin-top: auto;
 }
 
-#content {
-    --cell-size: calc((min(90vh, calc(100vw - 375px)) - 50px - 10px*var(--grid-rows, int))/var(--grid-rows, int));
+.content {
+    --cell-size: calc((min(90vh, 100vw) - 10px*var(--grid-rows, int) - 20px)/var(--grid-rows, int));
+    grid-area: content;
     align-self: center;
     display: grid;
     grid-template-columns: repeat(var(--grid-cols), var(--cell-size));
     grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
-    justify-items:center;
-    align-items:center;
+    justify-items: center;
+    align-items: center;
     justify-content: center;
     align-content: center;
     column-gap: 10px;
     row-gap: 10px;
     padding: 5vh 10px;
-    width: 100%;
+    background-color: white;
 }
 
-#content img {
+#options:has(> #hide[data-toggled="1"]) + .content {
+    --cell-size: calc((min(90vh, calc(100vw - 2rem + 20px)) - 10px*var(--grid-rows, int) - 20px)/var(--grid-rows, int));
+}
+
+.content img {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
@@ -239,29 +261,75 @@ body {
 }
 
 .hint-msg {
-    display: none;
-    font-weight: initial;
-}
-
-.hint:hover .hint-msg {
-    display: block;
     position: absolute;
-    width: max-content;
+    display: none;
+    width: 50vw;
     padding: 10px;
     box-shadow: 0 0 2.5px 1px black;
     border-radius: 5px;
     background-color: white;
     color: black;
     z-index: 99;
-    transition: all 100ms linear;
+    font-weight: initial;
+}
+
+.hint:hover .hint-msg {
+    display: block;
 }
 
 #options *:has(* .hint:hover) {
     overflow: visible;
 }
 
+#grid .hint-msg {
+    left: -100%
+}
+
 #grid[data-toggled="1"] .hint,
 #measure .hint {
     background-color: rgb(225, 225, 225);
     color: black;
+}
+
+#footer {
+    grid-area: footer;
+    align-self: end;
+    text-align: center;
+}
+
+/* Media rules */
+.content[data-mobile="0"] {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .content[data-mobile="0"]  {display: grid; width: 100%;}
+    .content[data-mobile="1"]  {display: none; height: 0;}
+    #options {
+        grid-template:
+        "hide" 2rem
+        "title" auto 
+        "mode" 2.8rem
+        "form-generate" calc(3*14px + 3*1.5rem + 2.8rem)
+        "form-measure" calc(2*14px + 2*1.5rem + 2.8rem)
+        "log" 1fr
+        "footer" auto;
+        width: 375px;
+        min-width: 375px;
+        padding: 25px 10px;
+    }
+    #options #hide {justify-self: end; transform: rotate(-180deg);}
+    #options #hide[data-toggled="1"] {transform: rotate(0);}
+    #options:has(#hide[data-toggled="1"]) {
+        position: fixed;
+        grid-template-rows: 2rem repeat(9, 0);
+        height: 100%;
+        transform: translateX(calc(-355px + 2rem));
+    }
+    #options:has(#hide[data-toggled="1"]) > :first-child,
+    #options:has(#hide[data-toggled="1"]) .content,
+    #options:has(#hide[data-toggled="1"]) #log,
+    #options:has(#hide[data-toggled="1"]) #footer {display: none;}  
+    #options:has(#hide[data-toggled="1"]) + .content {margin-left: calc(20px + 2rem);}  
+    .form-box{padding: 0;}
 }
