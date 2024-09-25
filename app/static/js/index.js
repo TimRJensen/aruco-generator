@@ -43,6 +43,7 @@ for (const form of document.querySelectorAll(".form")) {
 // Generator event handler
 (function () {
     const root = document.querySelector(":root");
+    const elm = document.getElementById("content");
 
     function handleSubmit(e) {
         if (e) {
@@ -75,11 +76,7 @@ for (const form of document.querySelectorAll(".form")) {
         root.style.setProperty("--mark-size", inputs[1].value);
         root.style.setProperty("--grid-rows", MODE ? inputs[3].value : 1);
         root.style.setProperty("--grid-cols", MODE ? inputs[4].value : 1);
-        for (const elm of document.querySelectorAll(".content")) {
-            if (window.getComputedStyle(elm).getPropertyValue("display") != "none") {
-                elm.replaceChildren(...children);
-            }
-        }
+        elm.replaceChildren(...children);
     }
 
     document.querySelector(".form.generate").onsubmit = handleSubmit;
@@ -88,7 +85,7 @@ for (const form of document.querySelectorAll(".form")) {
 
 // Measure event handler
 (function () {
-    const elm = document.getElementById("log");
+    const elms = document.querySelectorAll(".log");
     const texts = ["Marker length", "Column gap", "Row gap"];
 
     function handleSubmit(e) {
@@ -104,8 +101,8 @@ for (const form of document.querySelectorAll(".form")) {
         const ppmm = Math.sqrt(vw ** 2 + vh ** 2) / diagonal / 25.4;
 
         const n = parseInt(inputs[4].value);
-        const markers = document.querySelectorAll(".content img");
-        const first = markers[0]
+        const markers = document.querySelectorAll("#content img");
+        const first = markers[0];
         const first_box = first.getBoundingClientRect();
         const measures = [first_box.width / ppmm];
         let next = null;
@@ -126,15 +123,19 @@ for (const form of document.querySelectorAll(".form")) {
         for (let i = 0; i < measures.length; i++) {
             for (let text of [texts[i], `${measures[i].toFixed(2)}mm`]) {
                 const child = document.createElement("div");
-                child.textContent = text
-                children.push(child)
+                child.textContent = text;
+                children.push(child);
             }
         }
-        elm.replaceChildren(...children);
+        for (const elm of elms) {
+            if (window.getComputedStyle(elm).getPropertyValue("display") != "none") {
+                elm.replaceChildren(...children);
+            }
+        }
     }
 
     document.querySelector(".form.measure").onsubmit = handleSubmit;
-    const obs = new ResizeObserver((entries) => {
+    const obs = new ResizeObserver(() => {
         inputs[6].value = window.innerWidth;
         inputs[7].value = window.innerHeight;
     });
