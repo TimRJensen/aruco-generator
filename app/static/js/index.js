@@ -73,7 +73,7 @@ for (const form of document.querySelectorAll(".form")) {
             children.push(child);
         }
 
-        root.style.setProperty("--mark-size", inputs[1].value);
+        root.style.setProperty("--mark-size", inputs[1].value + "px");
         root.style.setProperty("--grid-rows", MODE ? inputs[3].value : 1);
         root.style.setProperty("--grid-cols", MODE ? inputs[4].value : 1);
         elm.replaceChildren(...children);
@@ -85,11 +85,13 @@ for (const form of document.querySelectorAll(".form")) {
 
 // Measure event handler
 (function () {
-    const elms = document.querySelectorAll(".log");
+    const elm = document.getElementById("log");
     const texts = ["Marker length", "Column gap", "Row gap"];
 
     function handleSubmit(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         if (!inputs[4].reportValidity()) {
             return;
@@ -112,8 +114,8 @@ for (const form of document.querySelectorAll(".form")) {
             measures.push(
                 Math.abs(
                     i
-                        ? first_box.bottom - next.getBoundingClientRect().top
-                        : first_box.right - next.getBoundingClientRect().left
+                        ? next.getBoundingClientRect().top - first_box.bottom
+                        : next.getBoundingClientRect().left - first_box.right
                 ) / ppmm
             );
             i++;
@@ -127,17 +129,14 @@ for (const form of document.querySelectorAll(".form")) {
                 children.push(child);
             }
         }
-        for (const elm of elms) {
-            if (window.getComputedStyle(elm).getPropertyValue("display") != "none") {
-                elm.replaceChildren(...children);
-            }
-        }
+        elm.replaceChildren(...children);
     }
 
     document.querySelector(".form.measure").onsubmit = handleSubmit;
     const obs = new ResizeObserver(() => {
         inputs[6].value = window.innerWidth;
         inputs[7].value = window.innerHeight;
+        handleSubmit(null);
     });
     obs.observe(document.querySelector("body"));
 })();
