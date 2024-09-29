@@ -134,8 +134,8 @@ for (const form of document.querySelectorAll(".form")) {
 
     document.querySelector(".form.measure").onsubmit = handleSubmit;
     const obs = new ResizeObserver(() => {
-        inputs[6].value = window.innerWidth;
-        inputs[7].value = window.innerHeight;
+        inputs[6].value = window.screen.width;
+        inputs[7].value = window.screen.height;
         handleSubmit(null);
     });
     obs.observe(document.querySelector("body"));
