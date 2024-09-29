@@ -194,7 +194,8 @@ body {
 }
 
 #content {
-    --cell-size: min(var(--mark-size), calc((min(100vw, 100vh) - 20px - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));
+    /* --cell-size: min(var(--mark-size), calc((min(95vw, 95vh) - 50px - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));*/
+    --cell-size: min(var(--mark-size), calc((min(100vw, 100vh) - 40px - 2rem - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));
     grid-area: content;
     align-self: center;
     display: grid;
@@ -205,7 +206,7 @@ body {
     width: 100%;
     column-gap: 10px;
     row-gap: 10px;
-    padding: 10px 10px;
+    padding: 10px;
     background-color: white;
 }
 
@@ -298,22 +299,24 @@ body {
     display: none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 720px) {
     .view{flex-flow: row nowrap; background-color: white; padding: 0;}
     .view > .footer {display: none;}
-    #content {--cell-size: min(var(--mark-size), calc((min(100vw, 100vh) - 20px - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));}
+    #content {
+        --cell-size: min(var(--mark-size), calc(min(100vw, 100vh) - 40px - 2rem - 10px*(var(--grid-rows) - 1))/var(--grid-rows));
+    }
     #options {
         grid-template-rows: 2rem 1.2rem 2.8rem calc(3*14px + 3*1.5rem + 2.8rem) calc(2*14px + 2*1.5rem + 2.8rem) auto auto;
-        width: 375px; 
-        min-width: 375px;
-        padding: 25px 10px;
+        width: 360px; 
+        min-width: 360px;
+        padding: 10px;
         background-color: var(--color-primary-light);
     }
     #options #hide {justify-self: end; transform: rotate(-180deg); grid-row: 1;}
     #options #hide[data-toggled="1"] {transform: rotate(0);}
-    #options:has(#hide[data-toggled="1"]) {position: fixed; height: 100%; transform: translateX(calc(-355px + 2rem));}
+    #options:has(#hide[data-toggled="1"]) {position: fixed; height: 100%; transform: translateX(calc(-340px + 2rem));}
     #options:has(#hide[data-toggled="1"]) > *:not(#options #hide) {display: none;}
-    #options:has(#hide[data-toggled="1"]) + .content {margin-left: calc(20px + 2rem);}  
+    #options:has(#hide[data-toggled="1"]) + #content {margin-left: calc(20px + 2rem);}  
     #options .form-box, #options #log {padding: 0;}
     #options .footer {display: block;}
 }
