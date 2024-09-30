@@ -20,11 +20,12 @@
                 </div>
                 <div id="mode">
                     <button id="single" data-toggled="1">Single</button>
-                    <button id="grid" data-toggled="0">
-                        Board<span class="hint">
-                        <div class="hint-msg right-align">
-                            Generates a m x n board using IDs from 0 to (m*n)-1
-                        </div></span>
+                    <button id="grid" data-toggled="0">Board
+                        <span class="hint">
+                            <div class="hint-msg right-align">
+                                Generates a m x n board,<br/>using IDs from 0 to (m*n)-1
+                            </div>
+                        </span>
                     </button>
                 </div>
                 <form class="form generate">
@@ -54,9 +55,12 @@
                 </form>
                 <form class="form measure">
                     <div class="form-box">
-                        <label>Screen<span class="hint">
-                            <div class="hint-msg left-align">The devices screen diagonal in inches
-                            </div></span>
+                        <label>Screen
+                            <span class="hint">
+                                <div class="hint-msg left-align">
+                                    The devices screen diagonal in inches
+                                </div>
+                            </span>
                         </label>
                         <input class="input" type="number" value="21" min="1" placeholder="″" required />
                     </div>
@@ -66,11 +70,10 @@
                         <div>x</div>
                         <input class="input" type="number" placeholder="height" min="1" required />
                     </div>
-                    <button id="measure" type="submit">
-                        Measure
+                    <button id="measure" type="submit">Measure
                         <span class="hint">
                             <div class="hint-msg center-align">
-                                Calculates the real-world size of a marker with respect to the devices DPI.<br/>
+                                Calculates the real-world size of a marker,<br/>with respect to the devices DPI.<br/>
                                 length=size/(&#x221A(width<sup>2</sup> + height<sup>2</sup>)/screen)
                             </div>
                         </span>
@@ -78,17 +81,11 @@
                 </form>
                 <div id="log"></div>
                 <button id="hide" class="material-symbols-outlined" data-toggled="0">
-                    &#xf591;
+                    &#xf5d2;
                 </button>
                 <div class="footer">
                     <a href="https://github.com/TimRJensen/aruco-generator">
-                        <svg
-                            width="35"
-                            height="35"
-                            viewBox="0 0 1024 1024"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <svg width="35" height="35" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
@@ -104,13 +101,7 @@
             <div id="content"></div>
             <div class="footer">
                 <a href="https://github.com/TimRJensen/aruco-generator">
-                    <svg
-                        width="35"
-                        height="35"
-                        viewBox="0 0 1024 1024"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="35" height="35" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             fill-rule="evenodd"
                             clip-rule="evenodd"

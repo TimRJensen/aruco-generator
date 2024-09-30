@@ -50,27 +50,20 @@ for (const form of document.querySelectorAll(".form")) {
             e.preventDefault();
         }
 
-        const markers = [];
+        const children = [];
         const q = `/q?dict=${inputs[0].value}&size=${inputs[1].value}`;
         if (MODE) {
             // Board mode
             for (let i = 0; i < parseInt(inputs[4].value) * parseInt(inputs[3].value); i++) {
                 const mark = document.createElement("img");
                 mark.src = `${q}&id=${i}`;
-                markers.push(mark);
+                children.push(mark);
             }
         } else {
             // Single mode
             const mark = document.createElement("img");
             mark.src = `${q}&id=${inputs[2].value}`;
-            markers.push(mark);
-        }
-
-        const children = []
-        for (let mark of markers) {
-            const child = document.createElement("div");
-            child.appendChild(mark);
-            children.push(child);
+            children.push(mark);
         }
 
         root.style.setProperty("--mark-size", inputs[1].value + "px");
@@ -138,5 +131,5 @@ for (const form of document.querySelectorAll(".form")) {
         inputs[7].value = window.screen.height;
         handleSubmit(null);
     });
-    obs.observe(document.querySelector("body"));
+    obs.observe(document.querySelector(":root"));
 })();

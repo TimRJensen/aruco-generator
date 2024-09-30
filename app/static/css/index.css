@@ -73,7 +73,6 @@ body {
     width: 2rem;
     border: none;
     padding: 0;
-    transform: rotate(-90deg);
     background-color: transparent;
     color: var(--color-primary-dark);
     font-size: 2rem;
@@ -81,7 +80,7 @@ body {
 }
 
 #options #hide[data-toggled="1"] {
-    transform: rotate(90deg);
+    transform: rotate(180deg);
 }
 
 #options:has(> #hide[data-toggled="1"]) {
@@ -194,7 +193,6 @@ body {
 }
 
 #content {
-    /* --cell-size: min(var(--mark-size), calc((min(95vw, 95vh) - 50px - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));*/
     --cell-size: min(var(--mark-size), calc((min(100vw, 100vh) - 40px - 2rem - 10px*(var(--grid-rows) - 1))/var(--grid-rows)));
     grid-area: content;
     align-self: center;
@@ -213,7 +211,7 @@ body {
 #content img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: scale-down;
 }
 
 .hint {
@@ -239,7 +237,7 @@ body {
 .hint-msg {
     position: absolute;
     display: none;
-    width: clamp(100px, 280px, 280px);
+    width: max-content;
     padding: 5px;
     box-shadow: 0 0 10px 1px black;
     border-radius: 5px;
@@ -312,8 +310,8 @@ body {
         padding: 10px;
         background-color: var(--color-primary-light);
     }
-    #options #hide {justify-self: end; transform: rotate(-180deg); grid-row: 1;}
-    #options #hide[data-toggled="1"] {transform: rotate(0);}
+    #options #hide {justify-self: end; transform: rotate(-90deg); grid-row: 1;}
+    #options #hide[data-toggled="1"] {transform: rotate(-270deg);}
     #options:has(#hide[data-toggled="1"]) {position: fixed; height: 100%; transform: translateX(calc(-340px + 2rem));}
     #options:has(#hide[data-toggled="1"]) > *:not(#options #hide) {display: none;}
     #options:has(#hide[data-toggled="1"]) + #content {margin-left: calc(20px + 2rem);}  
